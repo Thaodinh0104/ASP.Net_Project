@@ -1,0 +1,114 @@
+﻿@model PagedList.IPagedList<FreeGrab.Models.News>
+@using PagedList.Mvc;
+<section class="page-title">
+    <div class="auto-container">
+        <div class="sec-title">
+            <h1>  News List View</h1>
+            <div class="bread-crumb"><ul class=""><li><a href="/wp/charityclub/">Home</a></li><li>Events List View</li></ul></div>
+        </div>
+    </div>
+</section>
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pick-up">
+
+    <div class="vc_row wpb_row vc_row-fluid">
+        <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner ">
+                <div class="wpb_wrapper">
+
+
+                    <!--Blog News Section-->
+                    <section class="blog-news-section latest-news">
+                        <div class="auto-container">
+
+                            <div class="sec-title text-center">
+                                <h2>Latest  <span class="normal-font theme_color">News</span></h2>
+                                <div class="text"> </div>
+                            </div>
+                            <div class="row clearfix">
+                                <!--News Column-->
+                                @foreach (var news in Model)
+                                {
+                                    <div class="column blog-news-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                        <article class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                            <figure class="image-box">
+                                                <a href="~/Content/Home/wp/FreeGrabs/2016/09/lates-blog-post-with-image/">
+                                                    @foreach (var photo in news.Photos)
+                                                    {
+                                                        int count = 0;
+                                                        <img object-fit: cover width="350" height="250" src="@photo.Url" class="charityclub wp-post-image" alt="1" srcset="@photo.Url 350w, @photo.Url 300w" sizes="(max-width: 350px) 100vw, 350px" />
+
+                                                        if (++count == 1)
+                                                        {
+                                                            break;
+                                                        }
+
+                                                    }
+                                                </a>
+                                                <div class="news-date">@news.DateCreate<span class="month">Sep</span></div>
+                                            </figure>
+                                            <div class="content-box">
+                                                <h3><a href="~/Content/Home/wp/FreeGrabs/2016/09/lates-blog-post-with-image/">@news.Subject</a></h3>
+                                                <div class="post-info clearfix">
+                                                    <div class="post-info"><span class="icon flaticon-people-1"></span>  By @news.Customer.FirstName @news.Customer.LastName </div>
+                                                    <div class="post-options clearfix">
+                                                        <a href="~/Content/Home/wp/FreeGrabs/2016/09/lates-blog-post-with-image/#comments" class="comments-count"><span class="icon flaticon-communication-2"></span> 0 comment</a>
+                                                        <a href="javascript:void(0);" class="fav-count jolly_like_it" data-id="107"><span class="icon flaticon-favorite-1"></span> 5</a>
+                                                    </div>
+                                                </div>
+                                                <div class="text">
+
+                                                    <p> @Html.Raw(news.Content.Length > 200 ? news.Content.Substring(0, 200) : news.Content)  </p>
+
+
+
+                                                </div>
+                                                <a href="/Home/NewsDetail/@news.Id" class="theme-btn read-more">Read More</a>
+                                            </div>
+                                        </article>
+                                    </div>
+                                }
+                            </div>
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("AllNewses", new { page }))
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="vc_row wpb_row vc_row-fluid">
+    <div class="wpb_column vc_column_container vc_col-sm-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+                <!--Main Features-->
+                <section class="main-features parallax-section theme-overlay overlay-deep-white" style="background-image:url('/Content/Home/img/1.jpg')">
+                    <div class="auto-container">
+                        <div class="title-box text-center mb-0">
+                            <h1 class="fs-36 mb-15">Charity For Education</h1>
+                            <h2>Working With US by helping &amp; donation</h2>
+                            <div class="text">Lorem ipsum dolor sit amet, pro in harum aperiri persecuti, eu mea minim platonem, mea cetero intellegam eu. Mel ferri</div>
+                            <div class="">
+                                <a class="theme-btn btn-style-four" href="#">Join With Us</a>
+                                <a class="theme-btn btn-style-two" href="#">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

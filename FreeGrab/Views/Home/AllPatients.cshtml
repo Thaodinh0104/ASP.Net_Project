@@ -1,0 +1,344 @@
+﻿@model PagedList.IPagedList<FreeGrab.Models.Patient>
+@using PagedList.Mvc;
+<section class="page-title">
+    <div class="auto-container">
+        <div class="sec-title">
+            <h1>  Patients List View</h1>
+            <div class="bread-crumb"><ul class=""><li><a href="/wp/charityclub/">Home</a></li><li>Events List View</li></ul></div>
+        </div>
+    </div>
+</section>
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="vc_row wpb_row vc_row-fluid">
+    <div class="wpb_column vc_column_container vc_col-sm-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+
+                <!--Recent Causes Section-->
+                <section class="recent-projects">
+                    <div class="auto-container">
+
+                        <div class="sec-title clearfix">
+                            <div class="pull-left">
+                                <h2>New <span class="normal-font theme_color">Patients</span></h2>
+                                <div class="text">Lorem ipsum dolor sit amet, cum at inani interesset, nisl fugit munere ad mel,vix an omnium dolor amet </div>
+                            </div>
+                            <div class="pull-right padd-top-30">
+                                <a href="#" class="theme-btn btn-style-three">See All Projects</a>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <!--Default Featured Column-->
+
+                            @foreach (var patient in Model)
+                            {
+                                <div class="column default-featured-column style-two col-lg-3 col-md-6 col-sm-6 col-xs-12 patient_@patient.Id " id="patient_@patient.Id">
+                                    <article class="inner-box wow fadeInLeft" data-wow-delay="900ms" data-wow-duration="1500ms">
+                                        <figure class="image-box">
+                                            <a href="~/Content/Home/wp/FreeGrabs/campaigns/feed-for-hungry-child-2/">
+
+                                                @foreach (var photo in patient.Photos)
+                                                {
+                                                    int count = 0;
+                                                    <img object-fit: coverwidth="270" height="191" src="@photo.Url" class="charityclub wp-post-image" alt="1" srcset="@photo.Url 270w, @photo.Url 300w" sizes="(max-width: 270px) 100vw, 270350px" />
+
+
+                                                    if (++count == 1)
+                                                    {
+                                                        break;
+                                                    }
+
+                                                }
+                                            </a>
+                                            <div class="donate-piechart">
+                                                <div class="piechart-block">
+                                                    <div class="piechart style-one" data-fg-color="rgba(250,119,68,1)" data-value=".4">
+                                                        <span>.4</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                        <div class="content-box">
+
+                                            <h3><a href="~/Content/Home/wp/FreeGrabs/campaigns/feed-for-hungry-child-2/"> @patient.FullName</a></h3>
+                                            <div class="column-info"><span class="amount">Hospitals:</span>  <span class="goal-amount">@patient.Hospital.Name</span></div>
+                                            <div class="column-info"><span class="amount">Age:</span>  <span class="goal-amount">@patient.Age</span></div>
+                                            <div class="control-thumb"><span class="amount">Destination:</span>  <span class="goal-amount">@patient.Destination</span></div>
+                                            <div class="column-info"><span class="amount">Time:</span>  <span class="goal-amount">@patient.DateDeparture</span></div>
+
+                                            <a href="https://www.google.com/maps/dir/@patient.Hospital.Address)'/'@patient.Destination" class="theme-btn btn-style-four btn-sm mr-10">Google map</a>
+
+                                            <button type="button" class="theme-btn btn-style-two btn-sm" onclick="showPopup(@patient.Id)">Pick up</button>
+
+                                        </div>
+                                    </article>
+                                </div>
+
+                            }
+
+                        </div>
+
+                    </div>
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("AllPatients", new { page }))
+        
+            </section>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">YOUR INFOMATION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="FullName">Full Name</label>
+                        <input type="text" class="form-control full-name" id="full-name" placeholder="Your Full Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="IDCard">ID Card</label>
+                        <input type="text" class="form-control id-card" id="id-card" placeholder="Your ID Card" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Phone</label>
+                        <input type="text" class="form-control phone-number" id="phone-number" placeholder="Your Phone" />
+                    </div>
+
+                    <div class="form-group  ">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <img class="image-upload textform" src="" alt="Your Avatar" />
+                            <input type="file" name="ImageName" id="avatar" class="textform avatar" onchange="readURL(this);" />
+                        </div>
+
+
+                        @*@Html.TextBoxFor(model => model.Avatar, "test", new { type = "file", @class = "input-file", @name = "Avatar" })*@
+                        <div class="col-md-3"></div>
+                        <input type="hidden" name="patient " class="patient-id" value="" id="patient-id" style="display:none">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="theme-btn btn-style-two btn-sm btnAdd" id="btnAdd">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="vc_row wpb_row vc_row-fluid">
+    <div class="wpb_column vc_column_container vc_col-sm-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+                <!--Main Features-->
+                <section class="main-features parallax-section theme-overlay overlay-deep-white" style="background-image:url('/Content/Home/img/1.jpg')">
+                    <div class="auto-container">
+                        <div class="title-box text-center mb-0">
+                            <h1 class="fs-36 mb-15">Charity For Education</h1>
+                            <h2>Working With US by helping &amp; donation</h2>
+                            <div class="text">Lorem ipsum dolor sit amet, pro in harum aperiri persecuti, eu mea minim platonem, mea cetero intellegam eu. Mel ferri</div>
+                            <div class="">
+                                <a class="theme-btn btn-style-four" href="#">Join With Us</a>
+                                <a class="theme-btn btn-style-two" href="#">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function showPopup(id) {
+        $('#currentIdPatient').val(id);
+
+        $('#myModal').modal({
+            show: 'false'
+
+        });
+        $('.btnAdd').click(function () {
+
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#avatar").get(0);
+                var files = fileUpload.files;
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                //  Adding one more key to FormData object
+                fileData.append('username', 'Manas');
+
+                var PatientId = id; //Reading text box values using Jquery
+
+                var FullName = $(".full-name").val();
+
+                var IDCard = $("#id-card").val();
+                var Phone = $("#phone-number").val();
+                alert(PatientId);
+                fileData.append("PatientId", PatientId);
+                fileData.append("Phone", Phone);
+                fileData.append("FullName", FullName);
+
+                fileData.append("IDCard", IDCard);
+                $.ajax({
+                    url: '/Home/addGraber/' + PatientId,
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                        $('.patient_' + PatientId).remove();
+
+                        $(".modal-body input").val("");
+                        $(".modal-body image-upload").val("");
+                        $('#currentIdPatient').val("");
+                        $('#myModal').modal('hide');
+
+                    },
+                    error: function (err) {
+
+                        alert(err.statusText);
+
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        });
+
+
+
+    }
+
+    //function getComment() {
+    //    $.ajax({
+    //        url: '/Home/GetPatients/',
+    //        type: 'GET',
+
+    //        },
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            var rows = '';
+    //            $.each(data, function (i, item) {
+
+    //                rows += "<div class='column default -featured - column style - two col - lg - 3 col - md - 6 col - sm - 6 col - xs - 12 patient_1004 ' id='"+item.Id+">"
+    //                rows += "    < article class='inner-box wow fadeInLeft animated' data - wow - delay='900ms' data - wow - duration='1500ms' style = 'visibility: visible; animation-duration: 1500ms; animation-delay: 900ms; animation-name: fadeInLeft;' >"
+    //                rows += "        <figure class='image-box'>"
+    //                rows += "      <a href='"+item.Avatar+">"
+
+    //                rows += "              <img width='270' height='191' src='"+item.Avatar +" class='img-responsive wp-post-image' alt='3'>
+    //                rows += "                            </a>"
+    //                rows += "           <div class="donate-piechart">
+    //                rows += "                   <div class="piechart-block">
+    //                rows += "                          <div class="piechart style-one" data-fg-color="rgba(250,119,68,1)" data-value=".4"><canvas width="142" height="142"></canvas>
+    //                rows += "                              <span>40</span>
+    //                rows += "                         </div>
+    //                rows += "                       </div>
+    //                rows += "                    </div>
+    //                rows += "                          </figure>
+    //                rows += "              <div class="content-box">
+
+    //                rows += "                  <h3><a href="/Content/Home/wp/FreeGrabs/campaigns/feed-for-hungry-child-2/"> Huỳnh Văn Hậu</a></h3>
+    //                   rows += "                   <div class="column-info"><span class="amount">Hospitals:</span>  <span class="goal-amount">Da Nang General Hospital </span></div>
+    //                rows += "                   <div class="column-info"><span class="amount">Age:</span>  <span class="goal-amount">60</span></div>
+    //                rows += "                   <div class="control-thumb"><span class="amount">Destination:</span>  <span class="goal-amount">38 Tô Hiến Thành  Đà Nẵng</span></div>
+    //                rows += "                    <div class='column-info"><span class="amount">Time:</span>  <span class="goal-amount">7/11/2018 12:00:00 AM</span></div>
+    //                rows += "
+    //                rows += "                  <a href='https://www.google.com/maps/dir/124" + item.Address + ")'/'" + item.Destination+"' class='theme - btn btn - style - four btn - sm mr - 10'>Google map</a>"
+
+    //                rows += "                <button type='button' class='theme-btn btn-style-two btn-sm' onclick='showPopup("+item.Id+")>Pick up</button>"
+    //                rows += "
+    //                rows += "           </div>"
+    //                rows += "                      </article>"
+    //                rows += "                 </div >";
+    //                $("#comment-box").html(rows);
+    //            });
+    //        },
+    //        error: function (err) {
+    //            alert("thao: " + err.responseText);
+    //        }
+    //    });
+    //}
+
+    //$(document).ready(function () {
+    //    $('.btnAdd').click(function () {
+
+    //        // Checking whether FormData is available in browser
+    //        if (window.FormData !== undefined) {
+
+    //            //var fileUpload = $("#avatar").get(1);
+    //            //var files = fileUpload.files;
+
+    //            //// Create FormData object
+    //            //var fileData = new FormData();
+
+    //            //// Looping over all files and add it to FormData object
+    //            //for (var i = 0; i < files.length; i++) {
+    //            //    fileData.append(files[i].name, files[i]);
+    //            //}
+
+    //            // Adding one more key to FormData object
+    //            //   fileData.append('username', 'Manas');
+
+    //            var PatientId = $(".patient-id").val(); //Reading text box values using Jquery
+
+    //            var FullName = $(".full-name").val();
+
+    //            var IDCard = $("#id-card").val();
+    //            var Phone = $("#phone-number").val();
+    //            alert(PatientId);
+    //            fileData.append("PatientId", PatientId);
+    //            fileData.append("Phone", Phone);
+    //            fileData.append("FullName", FullName);
+
+    //            fileData.append("IDCard", IDCard);
+    //            $.ajax({
+    //                url: '/Home/addGraber/' + PatientId,
+    //                type: "POST",
+    //                contentType: false, // Not to set any content header
+    //                processData: false, // Not to process data
+    //                data: fileData,
+    //                success: function (result) {
+    //                    alert(result);
+    //                },
+    //                error: function (err) {
+
+    //                    alert(err.statusText);
+    //                    $('.patient_' + PatientId).remove();
+    //                    $('.myModal-' + PatientId).remove();
+    //                }
+    //            });
+    //        } else {
+    //            alert("FormData is not supported.");
+    //        }
+    //    });
+
+
+    //});
+
+</script>   

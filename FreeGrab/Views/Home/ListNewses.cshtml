@@ -1,0 +1,33 @@
+﻿
+    @{ 
+        Layout = null;
+    }
+@foreach (var news in Model)
+{
+    <div class="link-block">
+        <div class="default inner">
+            @foreach (var photos in news.Photos)
+            {
+                int count = 0;
+                <figure class="image-thumb "><img width="80" height="55" src="@photos.Url " sizes="(max-width: 80px) 100vw, 80px" /></figure>
+                if (++count == 1)
+                {
+                    break;
+                }
+            }
+            <h4 class="title">@news.Subject</h4>
+            <ul class="event-held">
+                <li><i class="fa fa-clock-o"></i> @news.DateCreate</li>
+                <li><i class="icon flaticon-people-1"></i>@news.Customer.FirstName</li>
+            </ul>
+            <ul class="event-date">
+                <li class="event-day">09</li>
+                <li class="event-month">Feb</li>
+            </ul>
+        </div>
+        <div class="alternate">
+            <p class="desc">@news.Subject</p>
+            <a class="theme-btn btn-style-five btn-xs mr-10" href="/Home/NewsDetail/@news.Id">Read More</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+  
+
+    <div class="input-group">
+        @using (Html.BeginForm("ResultSearch", "Home"))
+        {
+            @Html.TextBox("SearchString",null,new { @class="form-control" ,@placeholder = "Enter keyword", @id = "searchInput" })
+   
+            
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="icon flaticon-tool-5"></i>
+                </button>
+            </div>
+        }
+    </div>
+
+
+

@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("Search","Home"))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+

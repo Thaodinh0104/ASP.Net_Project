@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FreeGrabProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="NewsId" Type="Int32" />
+    <Property Name="GrabId" Type="Int32" />
+    <Property Name="PatientId" Type="Int32" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Comments_Customers" FromRole="Comments" ToRole="Customers" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Comments_Employees" FromRole="Comments" ToRole="Employees" />
+    <NavigationProperty Name="Graber" Relationship="Self.FK_Comments_Grabers" FromRole="Comments" ToRole="Grabers" />
+    <NavigationProperty Name="News" Relationship="Self.FK_Comments_Newses" FromRole="Comments" ToRole="Newses" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_Comments_Patients" FromRole="Comments" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="Byte" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Customers" FromRole="Customers" ToRole="Comments" />
+    <NavigationProperty Name="Newses" Relationship="Self.FK_Newses_Customers" FromRole="Customers" ToRole="Newses" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="Byte" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Employees" FromRole="Employees" ToRole="Comments" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Employees_Roles" FromRole="Employees" ToRole="Roles" />
+    <NavigationProperty Name="HistoryPosts" Relationship="Self.FK_HistoryPosts_Employees" FromRole="Employees" ToRole="HistoryPosts" />
+  </EntityType>
+  <EntityType Name="Graber">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IDCard" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Avatar" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Grabers" FromRole="Grabers" ToRole="Comments" />
+    <NavigationProperty Name="HistoryGrabs" Relationship="Self.FK_HistoryGrabers_Grapers" FromRole="Grabers" ToRole="HistoryGrabs" />
+  </EntityType>
+  <EntityType Name="HistoryGrab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GrabId" Type="Int32" Nullable="false" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Graber" Relationship="Self.FK_HistoryGrabers_Grapers" FromRole="HistoryGrabs" ToRole="Grabers" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_HistoryGrabs_Patients" FromRole="HistoryGrabs" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="HistoryPost">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+    <Property Name="DatePost" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="View" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_HistoryPosts_Employees" FromRole="HistoryPosts" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_Hospitals" FromRole="Hospitals" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Dateupdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsPost" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Newses" FromRole="Newses" ToRole="Comments" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Newses_Customers" FromRole="Newses" ToRole="Customers" />
+    <NavigationProperty Name="Type" Relationship="Self.FK_Blogs_Types" FromRole="Newses" ToRole="Types" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="Gender" Type="Byte" Nullable="false" />
+    <Property Name="HospitalId" Type="Int32" Nullable="false" />
+    <Property Name="DateDeparture" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Destination" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StatusId" Type="Int32" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Patients" FromRole="Patients" ToRole="Comments" />
+    <NavigationProperty Name="HistoryGrabs" Relationship="Self.FK_HistoryGrabs_Patients" FromRole="Patients" ToRole="HistoryGrabs" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_Patients_Hospitals" FromRole="Patients" ToRole="Hospitals" />
+    <NavigationProperty Name="PatientStatus" Relationship="Self.FK_Patients_PatientStatuses1" FromRole="Patients" ToRole="PatientStatuses" />
+  </EntityType>
+  <EntityType Name="PatientStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_PatientStatuses1" FromRole="PatientStatuses" ToRole="Patients" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Roles" FromRole="Roles" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentId" Type="Int32" Nullable="false" />
+    <Property Name="Type1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Newses" Relationship="Self.FK_Blogs_Types" FromRole="Types" ToRole="Newses" />
+  </EntityType>
+  <Association Name="FK_Comments_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Grabers">
+    <End Role="Grabers" Type="Self.Graber" Multiplicity="0..1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grabers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="GrabId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Newses">
+    <End Role="Newses" Type="Self.News" Multiplicity="0..1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Newses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="NewsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Patients">
+    <End Role="Patients" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Newses_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Newses" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Newses">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryPosts_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="HistoryPosts" Type="Self.HistoryPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryPosts">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryGrabers_Grapers">
+    <End Role="Grabers" Type="Self.Graber" Multiplicity="1" />
+    <End Role="HistoryGrabs" Type="Self.HistoryGrab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grabers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryGrabs">
+        <PropertyRef Name="GrabId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryGrabs_Patients">
+    <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+    <End Role="HistoryGrabs" Type="Self.HistoryGrab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryGrabs">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patients_Hospitals">
+    <End Role="Hospitals" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospitals">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="HospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Blogs_Types">
+    <End Role="Types" Type="Self.Type" Multiplicity="1" />
+    <End Role="Newses" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Newses">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patients_PatientStatuses1">
+    <End Role="PatientStatuses" Type="Self.PatientStatus" Multiplicity="1" />
+    <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientStatuses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FreeGrabProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Grabers" EntityType="Self.Graber" />
+    <EntitySet Name="HistoryGrabs" EntityType="Self.HistoryGrab" />
+    <EntitySet Name="HistoryPosts" EntityType="Self.HistoryPost" />
+    <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+    <EntitySet Name="Newses" EntityType="Self.News" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="PatientStatuses" EntityType="Self.PatientStatus" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Types" EntityType="Self.Type" />
+    <AssociationSet Name="FK_Comments_Customers" Association="Self.FK_Comments_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Employees" Association="Self.FK_Comments_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Grabers" Association="Self.FK_Comments_Grabers">
+      <End Role="Grabers" EntitySet="Grabers" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Newses" Association="Self.FK_Comments_Newses">
+      <End Role="Newses" EntitySet="Newses" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Patients" Association="Self.FK_Comments_Patients">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Newses_Customers" Association="Self.FK_Newses_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Newses" EntitySet="Newses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Roles" Association="Self.FK_Employees_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryPosts_Employees" Association="Self.FK_HistoryPosts_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="HistoryPosts" EntitySet="HistoryPosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryGrabers_Grapers" Association="Self.FK_HistoryGrabers_Grapers">
+      <End Role="Grabers" EntitySet="Grabers" />
+      <End Role="HistoryGrabs" EntitySet="HistoryGrabs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryGrabs_Patients" Association="Self.FK_HistoryGrabs_Patients">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="HistoryGrabs" EntitySet="HistoryGrabs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patients_Hospitals" Association="Self.FK_Patients_Hospitals">
+      <End Role="Hospitals" EntitySet="Hospitals" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Blogs_Types" Association="Self.FK_Blogs_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Newses" EntitySet="Newses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patients_PatientStatuses1" Association="Self.FK_Patients_PatientStatuses1">
+      <End Role="PatientStatuses" EntitySet="PatientStatuses" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

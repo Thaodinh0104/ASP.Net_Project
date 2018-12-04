@@ -1,0 +1,85 @@
+﻿@model PagedList.IPagedList<FreeGrab.Models.Patient>
+@using PagedList.Mvc;
+@{
+
+    Layout = null;
+}
+
+<div class="vc_row wpb_row vc_row-fluid">
+    <div class="wpb_column vc_column_container vc_col-sm-12">
+        <div class="vc_column-inner ">
+            <div class="wpb_wrapper">
+
+                <!--Recent Causes Section-->
+                <section class="recent-projects">
+                    <div class="auto-container">
+
+                        <div class="sec-title clearfix">
+                            <div class="pull-left">
+                                <h2>New <span class="normal-font theme_color">Patients</span></h2>
+                                <div class="text">Lorem ipsum dolor sit amet, cum at inani interesset, nisl fugit munere ad mel,vix an omnium dolor amet </div>
+                            </div>
+                            <div class="pull-right padd-top-30">
+                                <a href="/Home/AllPatients" class="theme-btn btn-style-three">See All Patients</a>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <!--Default Featured Column-->
+
+                            @foreach (var patient in Model)
+                            {
+                                <div class="column default-featured-column style-two col-lg-3 col-md-6 col-sm-6 col-xs-12 patient_@patient.Id " id="patient_@patient.Id">
+                                    <article class="inner-box wow fadeInLeft" data-wow-delay="900ms" data-wow-duration="1500ms">
+                                        <figure class="image-box">
+                                            <a href="~/Content/Home/wp/FreeGrabs/campaigns/feed-for-hungry-child-2/">
+
+                                                @foreach (var photo in patient.Photos)
+                                                {
+                                                    int count = 0;
+
+                                                    <img width="270" height="191" src="@photo.Url" class="img-responsive wp-post-image" alt="3" />
+                                                    if (++count == 1)
+                                                    {
+                                                        break;
+                                                    }
+
+                                                }
+                                            </a>
+                                            <div class="donate-piechart">
+                                                <div class="piechart-block">
+                                                    <div class="piechart style-one" data-fg-color="rgba(250,119,68,1)" data-value=".4">
+                                                        <span>.4</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </figure>
+                                        <div class="content-box">
+
+                                            <h3><a href="~/Content/Home/wp/FreeGrabs/campaigns/feed-for-hungry-child-2/"> @patient.FullName</a></h3>
+                                            <div class="column-info"><span class="amount">Hospitals:</span>  <span class="goal-amount">@patient.Hospital.Name</span></div>
+                                            <div class="column-info"><span class="amount">Age:</span>  <span class="goal-amount">@patient.Age</span></div>
+                                            <div class="control-thumb"><span class="amount">Destination:</span>  <span class="goal-amount">@patient.Destination</span></div>
+                                            <div class="column-info"><span class="amount">Time:</span>  <span class="goal-amount">@patient.DateDeparture</span></div>
+
+                                            <a href="https://www.google.com/maps/dir/@patient.Hospital.Address)'/'@patient.Destination" class="theme-btn btn-style-four btn-sm mr-10">Google map</a>
+
+                                            <button type="button" class="theme-btn btn-style-two btn-sm" onclick="showPopup(@patient.Id)">Pick up</button>
+
+                                        </div>
+                                    </article>
+                                </div>
+
+                            }
+
+                        </div>
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+

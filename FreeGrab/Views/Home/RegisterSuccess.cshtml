@@ -1,0 +1,27 @@
+﻿
+@model FreeGrab.Models.Customer
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel='stylesheet' href='~/Content/Form/Graber.css' type='text/css' />
+
+<div class="bg-contact2" style="background-image: url('/Content/Home/img/4.jpg');">
+    <div class="container-contact2">
+        <div class="wrap-contact2">
+
+<h1>Register Successfull</h1>
+
+            @Html.ActionLink("Register Now?", "Register", "AccountCustomer", null, new { @class = "textform" });
+            @Html.ActionLink("Forgot Password?", "ForgotPassword", "AccountCustomer", null, new { @class = "textform" });
+        </div>
+
+
+
+    </div>
+</div>
+
+

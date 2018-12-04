@@ -1,0 +1,70 @@
+﻿@model FreeGrab.Models.Graber
+
+<link rel='stylesheet' href='~/Content/Form/Graber.css' type='text/css' />
+<div class="bg-contact2" style="background-image: url('/Content/Home/img/4.jpg');">
+    <div class="container-contact2">
+        <div class="wrap-contact2">
+
+
+            @using (Html.BeginForm("Create", "Grabers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "contact2-form validate-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <span class="contact2-form-title">
+                        PLEASE ENTER YOUR INFORMATION BEFORE PICK UP
+                    </span>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2 textform" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control textform", @placeholder = "your Full Name" } })
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger textform" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IDCard, htmlAttributes: new { @class = "control-label col-md-2 textform" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IDCard, new { htmlAttributes = new { @class = "form-control textform ", @placeholder = "Your ID card" } })
+                            @Html.ValidationMessageFor(model => model.IDCard, "", new { @class = "text-danger textform" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2 textform" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control textform", @placeholder = " Your Phone" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-dange textformr" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <img id="image-upload" src="" class="textform" alt="Your Avatar" />
+                            <input type="file" name="ImageName" class="textform" onchange="readURL(this);" />
+                        </div>
+
+
+                        @*@Html.TextBoxFor(model => model.Avatar, "test", new { type = "file", @class = "input-file", @name = "Avatar" })*@
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="form-group ">
+                        <div class="col-md-offset-2 col-md-6">
+                            <input type="submit" value="PICK UP" class="btn btn-default textform" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "textform" })
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

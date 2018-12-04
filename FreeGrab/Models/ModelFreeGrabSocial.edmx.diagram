@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ae84d15d60b44659ea64579a126ea81" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Comment" Width="1.5" PointX="9.875" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Customer" Width="1.5" PointX="12.625" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Employee" Width="1.5" PointX="13.625" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Graber" Width="1.5" PointX="9.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.HistoryGrab" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.HistoryPost" Width="1.5" PointX="15.875" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Hospital" Width="1.75" PointX="4.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.News" Width="1.5" PointX="15.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Patient" Width="1.5" PointX="8" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.PatientStatus" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Photo" Width="1.5" PointX="11.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.Role" Width="1.5" PointX="11.625" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.sysdiagram" Width="1.5" PointX="4.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreeGrabProjectModel.TypeNews" Width="1.5" PointX="18.25" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Comments_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Comments_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Comments_Grabers" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Comments_Newses" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Comments_Patients" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Newses_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Employees_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_HistoryPosts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_HistoryGrabers_Grapers" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_HistoryGrabs_Patients" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_HistoryPosts_Newses" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Patients_Hospitals" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Blogs_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Photos_Blogs" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Patients_PatientStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="FreeGrabProjectModel.FK_Photos_Patients" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

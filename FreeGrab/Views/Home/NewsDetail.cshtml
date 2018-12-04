@@ -1,0 +1,273 @@
+﻿@model FreeGrab.Models.ShowData
+@{
+    ViewBag.Title = "NewsDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="page-title">
+    <div class="auto-container">
+        <div class="sec-title">
+            <h1><span class="normal-font">  @Model.newDetail.Subject</span></h1>
+            <div class="bread-crumb"><ul class=""><li><a href="/wp/charityclub/">Home</a></li><li><a href="/wp/charityclub/category/blog-post/">Blog Post</a></li><li>Lates blog post with image</li></ul></div>
+        </div>
+    </div>
+</section>
+<div class="sidebar-page">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <!-- sidebar area -->
+            <!--Content Side-->
+            <div class=" col-lg-9 col-md-8 col-sm-12 col-xs-12 ">
+
+                <!--Default Section-->
+                <section class="blog-news-section blog-detail no-padd-bottom no-padd-top padd-right-20">
+
+                    <div class="column blog-news-column">
+                        <article class="inner-box">
+                            <figure class="image-box">
+                                @foreach (var photo in Model.newDetail.Photos)
+                                {
+                                    int count = 0;
+                                    <img width="740" height="400" src="@photo.Url" class="img-responsive wp-post-image" alt="1" srcset="@photo.Url 740w, @photo.Url 300w" sizes="(max-width: 740px) 100vw, 740px" />
+
+                                    if (++count == 1)
+                                    {
+                                        break;
+                                    }
+
+                                }
+                                <div class="news-date">14<span class="month">Oct</span></div>
+                            </figure>
+                            <div class="content-box padd-top-30">
+                                <h3><a href="/wp/charityclub/2016/10/lates-blog-post-with-image-18/"> @Model.newDetail.Subject</a></h3>
+                                <div class="post-info clearfix">
+                                    <div class="post-author">Posted by  @Model.newDetail.Customer.FirstName  @Model.newDetail.Customer.LastName</div>
+                                    <div class="post-options pull-left clearfix">
+                                        <a href="/wp/charityclub/2016/10/lates-blog-post-with-image-18/#comments" class="comments-count"><span class="icon flaticon-communication-2"></span> 3</a>
+                                        <a href="javascript:void(0);" class="fav-count jolly_like_it" data-id="226"><span class="icon flaticon-favorite-1"></span> 9</a>
+                                    </div>
+                                </div>
+                                <div class="text">
+                                    <p> @Html.Raw(Model.newDetail.Content)  </p>
+                                </div>
+                            </div>
+
+                            <div class="post-share-options clearfix">
+                                <div class="pull-left tags"><strong>Tag : </strong> <a href="/wp/charityclub/tag/child/" rel="tag">Child</a>, <a href="/wp/charityclub/tag/donate/" rel="tag">Donate</a>, <a href="/wp/charityclub/tag/money/" rel="tag">Money</a>, <a href="/wp/charityclub/tag/volunteer/" rel="tag">Volunteer</a>, <a href="/wp/charityclub/tag/water/" rel="tag">Water</a></div>
+                                <div class="pull-right social-links-two clearfix">
+                                    <a href="http://www.facebook.com/sharer.php?u=/wp/charityclub/2016/10/lates-blog-post-with-image-18/" class="facebook img-circle"><span class="fa fa-facebook-f"></span></a>
+                                    <a href="https://twitter.com/share?url=/wp/charityclub/2016/10/lates-blog-post-with-image-18/&amp;text=lates-blog-post-with-image-18" class="twitter img-circle"><span class="fa fa-twitter"></span></a>
+                                    <a href="https://plus.google.com/share?url=/wp/charityclub/2016/10/lates-blog-post-with-image-18/" class="google-plus img-circle"><span class="fa fa-google-plus"></span></a>
+                                    <a href="https://pinterest.com/pin/create/bookmarklet/?url=/wp/charityclub/2016/10/lates-blog-post-with-image-18/&amp;description=lates-blog-post-with-image-18" class="linkedin img-circle"><span class="fa fa-pinterest-p"></span></a>
+                                    <a href="http://www.linkedin.com/shareArticle?url=/wp/charityclub/2016/10/lates-blog-post-with-image-18/&amp;title=lates-blog-post-with-image-18" class="linkedin img-circle"><span class="fa fa-linkedin"></span></a>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+
+                    <!-- comment area -->
+                    <div itemscope="" itemtype="http://schema.org/Comment" id="comments" class="post-comments comment-area clearfix">
+                        <div class="comments-area">
+                            <div class="group-title text-uppercase"><h2>
+    @if (@Model.comments.Count() > 0)
+    {
+       @Model.comments.Count()<p>Comment</p> 
+    }
+    else
+    {
+        <p id="number-comment">0 Comment</p>
+    }
+</h2></div>
+
+                            <div class="comment-box" id="comment-box">
+                                <!-- comment -->
+                                <!-- comment -->
+                                @foreach (var comments in Model.comments)
+                                {
+                                    <div class="ch-coment-item">
+                                        <div class="comment wow fadeInUp animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
+                                            <div class="author-thumb"><img style='height: 100%;' src="@comments.Customer.Avatar" alt="commenter"></div>
+
+                                            <div class="comment-info"><strong>@comments.Customer.LastName @comments.Customer.FirstName</strong> </div>
+                                            <div class="text">
+                                                <p> @comments.Contents</p>
+                                            </div>
+                                            <div class="reply-btn comment-reply-link" id="comment-reply-link-@comments.Id"> Reply</div>
+                                            <!-- Comments -->
+                                        </div>
+                                    </div><!-- #comment-## -->
+                                }
+                            </div>
+                        </div>
+
+
+                        <!-- Comment Form -->
+                        <div class="comment-form wow fadeInUp animated" data-wow-delay="200ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 200ms; animation-name: fadeInUp;">
+
+                            <div class="group-title text-uppercase"><h2>COMMENT</h2><div class="default-line-left"></div></div>
+                            <div class="default-form">
+                                <h2> <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wp/charityclub/2016/10/lates-blog-post-with-image-18/#respond" style="display:none;">Cancel reply</a></small></h2>
+
+                                <div class="row clearfix">
+                                    <p class="col-md-12 col-sm-12">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group"><input id="name" placeholder="Your Name*" class="form-control1" name="author" type="text" value="" size="30" aria-required="true"></div>
+
+
+                                    <div class="Array col-sm-12 col-xs-12 form-group"><textarea placeholder="Type Comment Here" class="form-control4" id="content" name="comment" cols="45" rows="3" aria-required="true"></textarea></div>						                        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <button id="save" type="submit" class="theme-btn btn-style-two">Add Comment </button>
+                                    </div>
+                                    <input type="hidden" name="comment_post_ID" value="@Model.newDetail.Id" id="news-id">
+                                    <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                                </div>
+
+
+
+
+                            </div><!-- #respond -->
+
+                        </div><!--End Comment Form -->
+
+                    </div><!-- #comments -->
+                    <!-- end comments -->
+
+                </section>
+            </div>
+            <!--Content Side-->
+            <!-- sidebar area -->
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <aside class="sidebar">
+                    <div id="search-3" class="widget sidebar-widget widget_search">
+                        <div class="search-box">
+                            <form action="/wp/charityclub/" method="get">
+
+                                <div class="form-group">
+                                    <input type="search" name="s" value="" placeholder="Enter keyword">
+                                    <button type="submit"><span class="icon flaticon-tool-5"></span></button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div><div id="categories-3" class="widget sidebar-widget widget_categories">
+                        <div class="sidebar-title"><h3>List Newses</h3></div>		<ul>
+                            <li class="cat-item cat-item-19">
+                                <a href="/wp/charityclub/category/blog-post/">Newes Post</a>
+                            </li>
+                            <li class="cat-item cat-item-10">
+                                <a href="/wp/charityclub/category/our-blog/">Our Newes</a>
+                            </li>
+                        </ul>
+                    </div><div id="bunch_recent_post-2" class="widget sidebar-widget widget_bunch_recent_post">
+                        <!-- Recent Posts -->
+                        <div class="recent-posts wow fadeInUp animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
+                            <div class="sidebar-title"><h3>Latest Newses</h3></div>
+                            <!-- Title -->
+                            @foreach (var news in Model.news)
+                            {
+                                <article class="post">
+                                    <figure class="post-thumb">
+                                        @foreach (var photo in news.Photos)
+                                        {
+                                            int count = 0;
+                                            <img width="80" height="43" src="@photo.Url" class="attachment-charityclub_80x75 size-charityclub_80x75 wp-post-image" alt="1" srcset="@photo.Url 740w, @photo.Url 300w" sizes="(max-width: 80px) 100vw, 80px" />
+
+                                            if (++count == 1)
+                                            {
+                                                break;
+                                            }
+
+                                        }
+                                    </figure>
+                                    <h4><a href="/Home/NewsDetail/@news.Id">@news.Subject</a></h4>
+                                    <div class="post-info"><span class="icon flaticon-people-1"></span>  By @news.Customer.FirstName @news.Customer.LastName </div>
+                                </article>
+                            }
+
+                        </div>
+
+                    </div><div id="archives-3" class="widget sidebar-widget widget_archive">
+                        <div class="sidebar-title"><h3>Archives</h3></div>		<ul>
+                            <li><a href="/wp/charityclub/2016/10/">October 2016</a></li>
+                            <li><a href="/wp/charityclub/2016/09/">September 2016</a></li>
+                        </ul>
+                    </div><div id="tag_cloud-2" class="widget sidebar-widget widget_tag_cloud">
+                        <div class="sidebar-title"><h3>KeyWords</h3></div><div class="tagcloud">
+                            <a href="/wp/charityclub/tag/child/" class="tag-link-20 tag-link-position-1" title="1 topic" style="font-size: 8pt;">Child</a>
+                            <a href="/wp/charityclub/tag/donate/" class="tag-link-22 tag-link-position-2" title="1 topic" style="font-size: 8pt;">Donate</a>
+                            <a href="/wp/charityclub/tag/money/" class="tag-link-23 tag-link-position-3" title="1 topic" style="font-size: 8pt;">Money</a>
+                            <a href="/wp/charityclub/tag/volunteer/" class="tag-link-24 tag-link-position-4" title="1 topic" style="font-size: 8pt;">Volunteer</a>
+                            <a href="/wp/charityclub/tag/water/" class="tag-link-21 tag-link-position-5" title="1 topic" style="font-size: 8pt;">Water</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getComment(News_Id) {
+        $.ajax({
+            url: '/Home/GetComment/' + News_Id,
+            type: 'GET',
+            data: data = {
+
+                News: News_Id,
+            },
+            dataType: 'json',
+            success: function (data) {
+                var rows = '';
+                $.each(data, function (i, item) {
+
+                    rows += "   <div class='comment wow fadeInUp animated' data-wow-delay='0ms' data-wow-duration='1500ms' style='visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;'>"
+                    rows += " <div class='author-thumb'><img style='height: 100%;' src='" + item.Avatar + "' alt='commenter'></div>"
+
+                    rows += "       <div class='comment-info'><strong>" + item.UserLastName + "</strong> </div>"
+                    rows += "   <div class='text'><p>" + item.Contents + "</p> </div>"
+
+                    rows += "         <div class='reply-btn'><a rel='nofollow' class='comment-reply-link' href='/wp/charityclub/2016/10/lates-blog-post-with-image-18/?replytocom=2#respond' onclick='return addComment.moveForm( &quot;comment-2&quot;, &quot;2&quot;, &quot;respond&quot;, &quot;226&quot; )' aria-label='Reply to Janntul Ferdous'> Reply</a></div>"
+
+                    rows += " </div>";
+                    $("#comment-box").html(rows);
+                    $("#number-comment").html(item.length);
+                });
+            },
+            error: function (err) {
+                alert("thao: " + err.responseText);
+            }
+        });
+    }
+    $(document).ready(function () {
+
+        //function will be called on button click having id btnsave
+        $("#save").click(function () {
+            var data = {
+                Contents: $("#content").val(), //Reading text box values using Jquery
+                NewsId: $("#news-id").val(),
+            };
+
+            $.ajax(
+                {
+
+                    type: "POST", //HTTP POST Method
+                    contentType: "application/json; charset=utf-8",
+                    url: "/Home/addComment", // Controller/View
+                    data: JSON.stringify(data),
+
+                    success: function (data) {
+
+                        getComment(data.NewsId);
+
+
+
+                    },
+                    error: function (da) {
+                        alert('Error');
+                    }
+                });
+
+
+        });
+    });
+
+</script>
